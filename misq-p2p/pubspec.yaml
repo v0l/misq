@@ -1,0 +1,24 @@
+name: misq_p2p
+description: Bisq P2P library for Dart
+version: 0.0.1
+author: Kieran Harkin <kieran@harkin.me>
+homepage: https://github.com/v0l/misq
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+
+dependencies:
+  protobuf: ^1.0.0
+  socks:
+    git:
+      url: https://github.com/v0l/socks
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  assets:
+    - btc_mainnet.seednodes
+    - btc_testnet.seednodes
+    - btc_regtest.seednodes
