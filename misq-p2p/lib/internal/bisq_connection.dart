@@ -5,13 +5,15 @@ import 'dart:typed_data';
 
 import 'package:misq_p2p/internal/bisq_capability.dart';
 import 'package:misq_p2p/internal/bisq_version.dart';
+import 'package:misq_p2p/internal/const.dart';
 import 'package:misq_p2p/proto_dart/proto/proto_v1.1.7.pb.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:socks/socks.dart';
 
-const Int32Max = 2147483647; // (2 ^ 31) - 1
-const MaxMessageSize = 10 * 1024 * 1024;
-
+/// Creates an outbound peer connection
+/// 
+/// Can open connections via tor if its running on the default port 9050
+/// 
 class BisqConnection {
   BisqVersion _version;
   SOCKSSocket _torSocket;

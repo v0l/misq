@@ -1,0 +1,19 @@
+name: misq
+description: Mobile bisq network app
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.3.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  misq_p2p:
+    path: misq-p2p
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
