@@ -10,7 +10,14 @@ class BitcoinNetwork {
 
   const BitcoinNetwork._(this._value);
 
-  bool operator ==(Object other) => other is BitcoinNetwork ? other._value == _value : false;
+  @override
+  String toString() {
+    return const {
+      Mainnet: "mainnet",
+      Testnet: "testnet",
+      Regtest: "regtest",
+    }[this];
+  }
 }
 
 class BisqVersion {
@@ -25,6 +32,8 @@ class BisqVersion {
   const BisqVersion(this.network);
 
   int get p2pMessageVersion => (network?._value ?? 0) + 10 * _P2PNetworkVersion;
+
+  String get appDataDirectory => "misq_$network";
 
   String toString() {
     return "Version: v$_LibVersion, P2PVersion: v$_P2PNetworkVersion";

@@ -1,11 +1,16 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:misq/theme/base.dart';
 import 'package:misq/theme/dark.dart';
 import 'package:misq/widgets/Launch.dart';
+import 'package:misq_p2p/misq_p2p.dart';
 
-void main() {
+void main() async {
   final theme = DarkTheme();
 
+  final net = BisqNetwork(version: BisqVersion.Regtest);
+  await net.run(rootBundle);
+  
   runApp(Theme(theme, MisqApp()));
 }
 

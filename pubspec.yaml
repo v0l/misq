@@ -17,3 +17,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  assets:
+    - packages/misq_p2p/data/btc_mainnet.seednodes
+    - packages/misq_p2p/data/btc_testnet.seednodes
+    - packages/misq_p2p/data/btc_regtest.seednodes

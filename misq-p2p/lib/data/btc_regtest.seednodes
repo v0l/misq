@@ -15,3 +15,7 @@
 # nodeaddress.onion:port [(@owner)]
 localhost:2002
 localhost:3002
+
+#android emulator localhost
+10.0.2.2:2002
+10.0.2.2:3002
