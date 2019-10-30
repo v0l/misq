@@ -9,7 +9,7 @@ import 'package:misq_p2p/internal/model/node_address.dart';
 import 'package:misq_p2p/internal/version.dart';
 import 'package:misq_p2p/proto_dart/proto/proto_v1.1.7.pb.dart';
 import 'package:protobuf/protobuf.dart';
-import 'package:socks/socks.dart';
+import 'package:socks5/socks5.dart';
 
 class PeerMessage {
   final NetworkEnvelope request;

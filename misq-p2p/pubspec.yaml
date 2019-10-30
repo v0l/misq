@@ -12,9 +12,7 @@ dependencies:
   sqflite: ^1.1.7+1
   path: ^1.6.4
   logging: ^0.11.3+2
-  socks:
-    git:
-      url: https://github.com/v0l/socks
+  socks5: ^0.1.1
 
 dev_dependencies:
   flutter_test:
