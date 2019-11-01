@@ -2,4 +2,4 @@
 
 A mobile Bisq client
 
-![screenshot](https://imgur.com/a/8EOhQXe)
+![screenshot](https://i.imgur.com/ioz63h9.png)
