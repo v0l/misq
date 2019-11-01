@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
   misq_p2p:
     path: misq-p2p
+  flutter_spinkit: ^4.0.0
+  intl: ^0.16.0
+  font_awesome_flutter: ^8.5.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +24,4 @@ flutter:
     - packages/misq_p2p/data/btc_mainnet.seednodes
     - packages/misq_p2p/data/btc_testnet.seednodes
     - packages/misq_p2p/data/btc_regtest.seednodes
+    - assets/images/logo_splash@2x.png

@@ -7,7 +7,7 @@ import 'package:misq_p2p/internal/bisq_capability.dart';
 import 'package:misq_p2p/internal/const.dart';
 import 'package:misq_p2p/internal/model/node_address.dart';
 import 'package:misq_p2p/internal/version.dart';
-import 'package:misq_p2p/proto_dart/proto/proto_v1.1.7.pb.dart';
+import 'package:misq_p2p/proto_dart/proto/proto_v1.2.0.pb.dart';
 import 'package:protobuf/protobuf.dart';
 import 'package:socks5/socks5.dart';
 
@@ -63,7 +63,7 @@ class BisqConnection {
   Future<void> connectTor(String host) async {
     log.info("Connecting to $host");
 
-    _rawSocket = await RawSocket.connect(InternetAddress.loopbackIPv4, 9050);
+    _rawSocket = await RawSocket.connect(InternetAddress("10.0.2.2"), 9050);
     _torSocket = SOCKSSocket(_rawSocket);
     await _torSocket.connect(host);
     _rawSub = _torSocket.subscription;
@@ -185,6 +185,7 @@ class BisqConnection {
       request: req,
       response: envelope,
       connection: this,
+      bytesIn: data.length
     ));
   }
 

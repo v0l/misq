@@ -7,7 +7,7 @@ import 'package:misq_p2p/internal/repository/seeds.dart';
 import 'package:misq_p2p/internal/version.dart';
 
 import 'package:misq_p2p/misq_p2p.dart';
-import 'package:misq_p2p/proto_dart/proto/proto_v1.1.7.pbserver.dart';
+import 'package:misq_p2p/proto_dart/proto/proto_v1.2.0.pbserver.dart';
 
 void main() {
   test('[MAINNET] Test seed node communication', () async {

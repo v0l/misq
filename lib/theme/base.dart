@@ -15,6 +15,9 @@ abstract class ThemeType {
   ColorPair get secondary;
   ColorPair get secondaryAccent1;
   ColorPair get secondaryAccent2;
+
+  ColorPair get buttonBuy;
+  ColorPair get buttonSell;
 }
 
 class Theme<T extends ThemeType> extends InheritedWidget {

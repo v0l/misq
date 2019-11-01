@@ -1,0 +1,33 @@
+class PaymentMethods {
+  static const AdvancedCash = "ADVANCED_CASH";
+  static const AliPay = "ALI_PAY";
+  static const Altcoins = "BLOCK_CHAINS";
+  static const AltcoinsInstant = "BLOCK_CHAINS_INSTANT";
+  static const CashApp = "CASH_APP";
+  static const CashDeposit = "CASH_DEPOSIT";
+  static const ChaseQuickPay = "CHASE_QUICK_PAY";
+  static const ClearXChange = "CLEAR_X_CHANGE";
+  static const F2F = "F2F";
+  static const FasterPayments = "FASTER_PAYMENTS";
+  static const HalCash = "HAL_CASH";
+  static const InteracETransfer = "INTERAC_E_TRANSFER";
+  static const JapanBank = "JAPAN_BANK";
+  static const MoneyBeam = "MONEY_BEAM";
+  static const MoneyGram = "MONEY_GRAM";
+  static const NationalBank = "NATIONAL_BANK";
+  static const OKPay = "OK_PAY";
+  static const PerfectMoney = "PERFECT_MONEY";
+  static const Popmoney = "POPMONEY";
+  static const PromptPay = "PROMPT_PAY";
+  static const Revolut = "REVOLUT";
+  static const SameBank = "SAME_BANK";
+  static const SEPA = "SEPA";
+  static const SEPAInstant = "SEPA_INSTANT";
+  static const SpecificBanks = "SPECIFIC_BANKS";
+  static const Swish = "SWISH";
+  static const Uphold = "UPHOLD";
+  static const USPostalMoneyOrder = "US_POSTAL_MONEY_ORDER";
+  static const Venmo = "VENMO";
+  static const WeChatPay = "WECHAT_PAY";
+  static const WesternUnion = "WESTERN_UNION";
+}

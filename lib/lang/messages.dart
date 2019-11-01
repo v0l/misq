@@ -1,0 +1,42 @@
+import 'package:intl/intl.dart';
+
+class M {
+  static String paymentName(String method) => Intl.select(
+        method,
+        {
+          "ADVANCED_CASH": "Advanced Cash",
+          "ALI_PAY": "AliPay",
+          "BLOCK_CHAINS": "Altcoins",
+          "BLOCK_CHAINS_INSTANT": "Altcoins Instant",
+          "CASH_APP": "Cash App",
+          "CASH_DEPOSIT": "Cash Deposit",
+          "CHASE_QUICK_PAY": "Chase QuickPay",
+          "CLEAR_X_CHANGE": "Zelle (ClearXchange)",
+          "F2F": "Face to face (in person)",
+          "FASTER_PAYMENTS": "Faster Payments",
+          "HAL_CASH": "HalCash",
+          "INTERAC_E_TRANSFER": "Interac e-Transfer",
+          "JAPAN_BANK": "Japan Bank Furikomi",
+          "MONEY_BEAM": "MoneyBeam (N26)",
+          "MONEY_GRAM": "MoneyGram",
+          "NATIONAL_BANK": "National bank transfer",
+          "OK_PAY": "OKPay",
+          "PERFECT_MONEY": "Perfect Money",
+          "POPMONEY": "Popmoney",
+          "PROMPT_PAY": "PromptPay",
+          "REVOLUT": "Revolut",
+          "SAME_BANK": "Transfer with same bank",
+          "SEPA": "SEPA",
+          "SEPA_INSTANT": "SEPA Instant Payments",
+          "SPECIFIC_BANKS": "Transfers with specific banks",
+          "SWISH": "Swish",
+          "UPHOLD": "Uphold",
+          "US_POSTAL_MONEY_ORDER": "",
+          "VENMO": "US Postal Money Order",
+          "WECHAT_PAY": "WeChat Pay",
+          "WESTERN_UNION": "Western Union",
+        },
+        args: [method],
+        name: "paymentName",
+      );
+}

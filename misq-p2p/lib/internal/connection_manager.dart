@@ -8,23 +8,28 @@ import 'package:misq_p2p/internal/model/node_address.dart';
 import 'package:misq_p2p/internal/repository/peers.dart';
 import 'package:misq_p2p/internal/repository/seeds.dart';
 import 'package:misq_p2p/misq_p2p.dart';
-import 'package:misq_p2p/proto_dart/proto/proto_v1.1.7.pb.dart';
+import 'package:misq_p2p/proto_dart/proto/proto_v1.2.0.pb.dart';
 
-enum _PeerDirection { Outbound, Inbound }
+enum PeerDirection { Outbound, Inbound }
 
-class _PeerConnection {
+class PeerConnection {
   final BisqConnection connection;
   final DateTime connected;
-  final _PeerDirection direction;
+  final PeerDirection direction;
   StreamSubscription<PeerMessage> messageHandler;
   int bytesIn;
   int bytesOut;
   double lastPing;
 
-  _PeerConnection({this.connection, this.direction})
+  PeerConnection({this.connection, this.direction})
       : assert(connection != null, "Connection must not be null"),
         assert(direction != null, "Direction must not be null"),
         connected = DateTime.now();
+
+  void close() {
+    messageHandler.cancel();
+    connection.close();
+  }
 
   String toString() {
     return "[${direction.toString().split(".")[1]}] $connection";
@@ -32,19 +37,22 @@ class _PeerConnection {
 }
 
 class ConnectionManager {
-  static const int TargetConnections = 5;
+  static const int TargetConnections = 1;
 
   final Logger log = Logger("ConnectionManager");
   final BisqVersion version;
   final SeedRepository seedRepo;
   final PeerRepository peerRepo;
+  final StreamController<NetworkEvent> eventStream;
 
-  final List<_PeerConnection> _peers = List<_PeerConnection>();
+  final List<PeerConnection> _peers = List<PeerConnection>();
+  int get peerCount => _peers?.length;
 
   ConnectionManager({
     this.version,
     this.seedRepo,
     this.peerRepo,
+    this.eventStream,
   });
 
   Future<void> start() async {
@@ -60,6 +68,13 @@ class ConnectionManager {
     toConnect.forEach((a) => tryMakeConnection(a));
   }
 
+  Future<void> shutdown() async {
+    for (var p in _peers) {
+      p.close();
+    }
+    _peers.clear();
+  }
+
   Future<void> tryMakeConnection(PeerAddress addr) async {
     try {
       var newCon = BisqConnection(version);
@@ -67,12 +82,16 @@ class ConnectionManager {
 
       /// if connected, add peer to list and listen for messages
       ///
-      final pc = _PeerConnection(connection: newCon, direction: _PeerDirection.Outbound);
+      final pc = PeerConnection(connection: newCon, direction: PeerDirection.Outbound);
       pc.messageHandler = newCon.onMessage.listen((data) {
-        pc.bytesIn += data.bytesIn;
+        pc.bytesIn = (pc.bytesIn ?? 0) + data.bytesIn;
         _handlePeerMessage(pc, data);
       });
       _peers.add(pc);
+      eventStream.add(NewPeerNetworkEvent(
+        newPeer: pc,
+        peerCount: peerCount,
+      ));
     } on SocketException catch (sex) {
       log.warning("Connection failed to $addr, $sex");
     } on Exception catch (ex) {
@@ -80,7 +99,7 @@ class ConnectionManager {
     }
   }
 
-  Future<void> _handlePeerMessage(_PeerConnection conn, PeerMessage msg) async {
+  Future<void> _handlePeerMessage(PeerConnection conn, PeerMessage msg) async {
     log.info("message [${msg.response.whichMessage().toString().split(".")[1]}] from $conn");
 
     switch (msg.response.whichMessage()) {
@@ -89,9 +108,7 @@ class ConnectionManager {
         break;
       case NetworkEnvelope_Message.getDataResponse:
         final data = msg.response.getDataResponse;
-        for(var payload in data.dataSet) {
-
-        }
+        eventStream.add(NetworkReadyNetworkEvent(response: data));
         break;
       case NetworkEnvelope_Message.getUpdatedDataRequest:
         // TODO: Handle this case.
@@ -130,15 +147,6 @@ class ConnectionManager {
         // TODO: Handle this case.
         break;
       case NetworkEnvelope_Message.prefixedSealedAndSignedMessage:
-        // TODO: Handle this case.
-        break;
-      case NetworkEnvelope_Message.payDepositRequest:
-        // TODO: Handle this case.
-        break;
-      case NetworkEnvelope_Message.publishDepositTxRequest:
-        // TODO: Handle this case.
-        break;
-      case NetworkEnvelope_Message.depositTxPublishedMessage:
         // TODO: Handle this case.
         break;
       case NetworkEnvelope_Message.counterCurrencyTransferStartedMessage:
@@ -220,6 +228,27 @@ class ConnectionManager {
         // TODO: Handle this case.
         break;
       case NetworkEnvelope_Message.notSet:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.inputsForDepositTxRequest:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.inputsForDepositTxResponse:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.depositTxMessage:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.delayedPayoutTxSignatureRequest:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.delayedPayoutTxSignatureResponse:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.depositTxAndDelayedPayoutTxMessage:
+        // TODO: Handle this case.
+        break;
+      case NetworkEnvelope_Message.peerPublishedDelayedPayoutTxMessage:
         // TODO: Handle this case.
         break;
     }
